@@ -1,6 +1,8 @@
 <?php
 
-class shop implements openingHours
+require BASE_PATH . 'app/models/class.openingHours.php';
+
+class Shop implements OpeningHours
 {
 
     function isOpen(DateTime $now)
