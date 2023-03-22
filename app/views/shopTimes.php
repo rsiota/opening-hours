@@ -1,0 +1,27 @@
+<?php  include BASE_PATH . 'app/controllers/shopTimesController.php' ?>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<?php if($days) : ?>
+    <div class="shop-times">
+        <div class="shop-times__inner">
+            <h2 class="shop-times__header">Opening Times</h2>
+            <div class="shop-times__days">
+                <?php foreach($days as $day) : ?>
+                    <div class="shop-times__day <?= ($dayOpen == $day['name']) ? 'open' : ''?>">
+                        <span class="shop-times__day-text"><?= $day['name'] ?></span>
+                        <span class="shop-times__time-start"><?= $day['startTime'] ?></span>-
+                        <span class="shop-times__time-end"><?= $day['endTime'] ?></span>
+                    </div>
+                <?php endforeach ?>
+            </div>
+            <h3 class="shop-times__small-header">Next Opening: <?= $nextOpening ?></h3>
+            <div class="shop-times__times">
+                <p class="shop-times__office-time">Office Time: (<?= $officeTime ?>) <?= $officeTimezone ?></p>
+                <p class="shop-times__local-time">Local Time:  (<?= $localTime ?>) <?= $localTimezone ?></p>
+            </div>
+        </div>
+    </div>
+<?php endif ?>
+

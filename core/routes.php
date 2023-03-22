@@ -3,7 +3,7 @@
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
-case '/test-one' :
-    require BASE_PATH . '/app/views/testOne.php';
+case '/paris-shop' :
+    require BASE_PATH . '/app/views/shopTimes.php';
     break;
 }

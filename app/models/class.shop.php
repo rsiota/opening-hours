@@ -5,25 +5,31 @@ require BASE_PATH . 'app/models/class.utils.php';
 
 class Shop implements OpeningHours
 {
-
-
-
     function isOpen(DateTime $now)
     {
         $dayWeek = $this->dayWeek($now);
+        $time = date_format($now, 'H:i:s');
 
         $query =
             "SELECT *
             FROM day
             WHERE day.name = '{$dayWeek}'
-            AND CURRENT_TIME() >= startTime AND CURRENT_TIME() <= endTime";
+            AND '{$time}' >= startTime AND '{$time}' <= endTime";
 
-        $openDay = Utils::db($query);
+        $open = Utils::db($query);
 
-        if($openDay) {
+        if($open) {
             return true;
         }
         return false;
+    }
+
+    function getByUrl()
+    {
+        $request = $_SERVER['REQUEST_URI'];
+        $url = basename($request);
+        $result = Utils::db("SELECT * FROM shop WHERE friendlyUrlName = '{$url}'");
+        return $result[0];
     }
 
     function dayWeek(DateTime $now)
@@ -46,5 +52,27 @@ class Shop implements OpeningHours
         return Utils::db($query);
     }
 
+    function getLocalTime()
+    {
+        return new Datetime('now');
+    }
 
+    function getLocalTimeZone()
+    {
+        $timezone = ($this->getLocalTime())->getTimeZone();
+        return $timezone->getName();
+    }
+
+    function getOfficeTime($url)
+    {
+        $query =
+            "SELECT timezone
+            FROM shop
+            WHERE friendlyUrlName = '{$url}'";
+        $timezone = Utils::db($query);
+        $timezone_from = $timezone[0]['timezone'];
+        $nowOfficeTime = new DateTime('now');
+        $nowOfficeTime->setTimezone(new DateTimeZone($timezone_from));
+        return $nowOfficeTime;
+    }
 }

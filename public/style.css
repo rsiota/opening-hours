@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
@@ -6,22 +7,50 @@
 	font-family: 'Poppins', sans-serif;
 }
 
-.test-one {
+.shop-times {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
 
-.test-one__header {
+.shop-times__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shop-times__days {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop-times__header {
     margin: 0;
     font-size: 26px;
     padding-bottom: 30px;
     text-align: center;
 }
 
-.test-one__day {
+.shop-times__times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    opacity: 0.5;
+}
+
+.shop-times__local-time, .shop-times__office-time {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+}
+
+.shop-times__day {
     width: 300px;
     display: flex;
     justify-content: space-between;
@@ -29,7 +58,7 @@
     opacity: 0.3;
 }
 
-.test-one__day.open {
+.shop-times__day.open {
     opacity: 1;
 }
 
@@ -38,7 +67,15 @@ span {
     width: calc(100% / 4);
 }
 
+span:first-of-type {
+    text-align: left;
+}
 
+.shop-times__small-header {
+    margin: 5px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
 
-
+}
 
