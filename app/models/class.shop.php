@@ -24,10 +24,14 @@ class Shop implements OpeningHours
         return false;
     }
 
+    function nextOpening(DateTime $now)
+    {
+        return 'Mon 09:00 - 18:00';
+    }
+
     function getByUrl()
     {
-        $request = $_SERVER['REQUEST_URI'];
-        $url = basename($request);
+        $url = $this->getUrl();
         $result = Utils::db("SELECT * FROM shop WHERE friendlyUrlName = '{$url}'");
         return $result[0];
     }
@@ -37,13 +41,16 @@ class Shop implements OpeningHours
         return $now->format('D');
     }
 
-    function nextOpening(DateTime $now)
+    function getUrl()
     {
-        return 'Mon 09:00 - 18:00';
+        $request = $_SERVER['REQUEST_URI'];
+        return basename($request);
     }
 
-    function showOpeningHours($url)
+
+    function showOpeningHours()
     {
+        $url = $this->getUrl();
         $query =
             "SELECT day.*
             FROM day

@@ -10,7 +10,7 @@ $nowOfficeTime = (new Shop)->getOfficeTime('paris-shop');
 $localTime = date_format($nowLocalTime, 'H:i:s');
 $officeTime = date_format($nowOfficeTime, 'H:i:s');
 
-$days = (new Shop)->showOpeningHours('paris-shop');
+$days = (new Shop)->showOpeningHours();
 $open = (new Shop)->isOpen($nowOfficeTime);
 
 if ($open) {

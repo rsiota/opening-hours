@@ -62,6 +62,10 @@
     opacity: 1;
 }
 
+.shop-times__day-closed {
+    width: 75%;
+}
+
 span {
     text-align: center;
     width: calc(100% / 4);

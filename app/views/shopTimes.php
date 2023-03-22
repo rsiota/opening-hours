@@ -10,9 +10,15 @@
             <div class="shop-times__days">
                 <?php foreach($days as $day) : ?>
                     <div class="shop-times__day <?= ($dayOpen == $day['name']) ? 'open' : ''?>">
-                        <span class="shop-times__day-text"><?= $day['name'] ?></span>
-                        <span class="shop-times__time-start"><?= $day['startTime'] ?></span>-
-                        <span class="shop-times__time-end"><?= $day['endTime'] ?></span>
+                            <span class="shop-times__day-text"><?= $day['name'] ?></span>
+                        <?php if($day['boolIsClosed'] != 1) : ?>
+                            <span class="shop-times__time-start"><?= $day['startTime'] ?></span>-
+                            <span class="shop-times__time-end"><?= $day['endTime'] ?></span>
+                        <?php else : ?>
+                            <span class="shop-times__day-closed">Closed</span>
+                        <?php endif ?>
+
+
                     </div>
                 <?php endforeach ?>
             </div>
