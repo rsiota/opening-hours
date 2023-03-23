@@ -1,4 +1,5 @@
 <?php  include BASE_PATH . 'app/controllers/shopTimesController.php' ?>
+
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,12 +18,13 @@
                         <?php else : ?>
                             <span class="shop-times__day-closed">Closed</span>
                         <?php endif ?>
-
-
                     </div>
                 <?php endforeach ?>
             </div>
-            <h3 class="shop-times__small-header">Next Opening: <?= $nextOpening ?></h3>
+            <h3 class="shop-times__small-header">Next Opening:&nbsp;
+                <?= $nextOpening['name'] ?> -
+                <?= $nextOpening['startTime'] ?>
+            </h3>
             <div class="shop-times__times">
                 <p class="shop-times__office-time">Office Time: (<?= $officeTime ?>) <?= $officeTimezone ?></p>
                 <p class="shop-times__local-time">Local Time:  (<?= $localTime ?>) <?= $localTimezone ?></p>

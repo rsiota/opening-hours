@@ -14,7 +14,8 @@ class Shop implements OpeningHours
             "SELECT *
             FROM day
             WHERE day.name = '{$dayWeek}'
-            AND '{$time}' >= startTime AND '{$time}' <= endTime";
+            AND '{$time}' >= startTime AND '{$time}' <= endTime
+            AND boolIsClosed != 1";
 
         $open = Utils::db($query);
 
@@ -26,7 +27,36 @@ class Shop implements OpeningHours
 
     function nextOpening(DateTime $now)
     {
-        return 'Mon 09:00 - 18:00';
+        $isOpen = $this->isOpen($now);
+        $dayWeek = $this->dayWeek($now);
+        $day = $this->getIdbyDay($dayWeek);
+        $dayId = $day[0]['id'];
+
+        if ($isOpen) {
+            return 'Shop is currently open';
+        } else {
+
+            function query($param) {
+                return
+                    "SELECT day.*
+                    FROM day
+                    LEFT JOIN shop ON shop.id = day.shop
+                    WHERE shop.friendlyUrlName = 'paris-shop'
+                    AND day.boolIsClosed != 1
+                    AND day.id > {$param} ORDER BY day.id LIMIT 1";
+            }
+
+            $nextOpeningNextWeek = Utils::db(query(0));
+            $nextOpeningThisWeek = Utils::db(query($dayId));
+
+            if($nextOpeningThisWeek) {
+                return $nextOpeningThisWeek[0];
+            } else {
+                return $nextOpeningNextWeek[0];
+            }
+
+
+        }
     }
 
     function getByUrl()
@@ -34,6 +64,11 @@ class Shop implements OpeningHours
         $url = $this->getUrl();
         $result = Utils::db("SELECT * FROM shop WHERE friendlyUrlName = '{$url}'");
         return $result[0];
+    }
+
+    function getIdByDay($day)
+    {
+        return Utils::db("SELECT id FROM day WHERE name = '{$day}'");
     }
 
     function dayWeek(DateTime $now)
@@ -48,7 +83,7 @@ class Shop implements OpeningHours
     }
 
 
-    function showOpeningHours()
+    function getOpeningHours()
     {
         $url = $this->getUrl();
         $query =
