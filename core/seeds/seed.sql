@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.23)
 # Database: opening-hours
-# Generation Time: 2023-03-20 20:37:41 +0000
+# Generation Time: 2023-03-23 22:13:06 +0000
 # ************************************************************
 
 
@@ -31,21 +31,22 @@ CREATE TABLE `day` (
   `startTime` time DEFAULT NULL,
   `endTime` time DEFAULT NULL,
   `shop` varchar(25) DEFAULT NULL,
+  `boolIsClosed` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `day` WRITE;
 /*!40000 ALTER TABLE `day` DISABLE KEYS */;
 
-INSERT INTO `day` (`id`, `name`, `startTime`, `endTime`, `shop`)
+INSERT INTO `day` (`id`, `name`, `startTime`, `endTime`, `shop`, `boolIsClosed`)
 VALUES
-	(1,'Mon','09:00:00','18:00:00','1'),
-	(2,'Tue','09:00:00','18:00:00','1'),
-	(3,'Wed','09:00:00','20:00:00','1'),
-	(4,'Thu','09:00:00','21:00:00','1'),
-	(5,'Fri','09:00:00','21:00:00','1'),
-	(6,'Sat','09:00:00','15:00:00','1'),
-	(7,'Sun','13:00:00','14:00:00','1');
+	(1,'Mon','09:00:00','18:00:00','1',0),
+	(2,'Tue','09:00:00','18:00:00','1',0),
+	(3,'Wed','09:00:00','20:00:00','1',1),
+	(4,'Thu','09:00:00','21:00:00','1',0),
+	(5,'Fri','09:00:00','21:00:00','1',0),
+	(6,'Sat','09:00:00','15:00:00','1',0),
+	(7,'Sun','13:00:00','16:00:00','1',0);
 
 /*!40000 ALTER TABLE `day` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -60,15 +61,16 @@ CREATE TABLE `shop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `friendlyUrlName` varchar(255) DEFAULT NULL,
+  `timezone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `shop` WRITE;
 /*!40000 ALTER TABLE `shop` DISABLE KEYS */;
 
-INSERT INTO `shop` (`id`, `name`, `friendlyUrlName`)
+INSERT INTO `shop` (`id`, `name`, `friendlyUrlName`, `timezone`)
 VALUES
-	(1,'Fictional Shop','fictional-shop');
+	(1,'Paris Shop','paris-shop','Europe/Paris');
 
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 UNLOCK TABLES;

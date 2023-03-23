@@ -21,10 +21,12 @@
                     </div>
                 <?php endforeach ?>
             </div>
-            <h3 class="shop-times__small-header">Next Opening:&nbsp;
-                <?= $nextOpening['name'] ?> -
-                <?= $nextOpening['startTime'] ?>
-            </h3>
+            <?php if($nextOpening) : ?>
+                <h3 class="shop-times__small-header">Next Opening:&nbsp;
+                    <?= $nextOpening['name'] ?> -
+                    <?= $nextOpening['startTime'] ?>
+                </h3>
+            <?php endif ?>
             <div class="shop-times__times">
                 <p class="shop-times__office-time">Office Time: (<?= $officeTime ?>) <?= $officeTimezone ?></p>
                 <p class="shop-times__local-time">Local Time:  (<?= $localTime ?>) <?= $localTimezone ?></p>
